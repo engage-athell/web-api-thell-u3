@@ -1,0 +1,6 @@
+@web_api_thell_u3_HostAddress = http://localhost:5287
+
+GET {{web_api_thell_u3_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

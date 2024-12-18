@@ -7,9 +7,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'web-api-thell-u3/**'
-      - '.github/workflows/**'
   workflow_dispatch:
 
 jobs:
@@ -25,21 +22,16 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: |
-          cd web-api-thell-u3
-          dotnet build "web-api-thell-u3.csproj" --configuration Release
+        run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: |
-          cd web-api-thell-u3
-          dotnet publish "web-api-thell-u3.csproj" -c Release -o ../publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: publish
-          if-no-files-found: error
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: ubuntu-latest

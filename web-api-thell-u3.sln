@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web-api-thell-u3", "web-api-thell-u3\web-api-thell-u3.csproj", "{98818F1C-17A5-4C4C-8BAA-A03AE8642042}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web-api-thell-u3-smoketest", "web-api-thell-u3-smoketest\web-api-thell-u3-smoketest.csproj", "{BC1D0D95-D631-4CFE-A802-C277872A708F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

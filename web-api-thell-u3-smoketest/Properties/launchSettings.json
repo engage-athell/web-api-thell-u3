@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "web_api_thell_u3_smoketest": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 7052",
-      "launchBrowser": false
-    }
-  }
-}

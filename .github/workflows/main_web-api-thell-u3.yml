@@ -10,8 +10,6 @@ on:
     paths:
       - 'web-api-thell-u3/**'
       - '.github/workflows/**'
-    paths-ignore:
-      - 'web-api-thell-u3-smoketest/**'
   workflow_dispatch:
 
 jobs:

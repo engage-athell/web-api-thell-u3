@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'web-api-thell-u3/**'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 jobs:
@@ -22,9 +25,11 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
+        working-directory: ./web-api-thell-u3
         run: dotnet build --configuration Release
 
       - name: dotnet publish
+        working-directory: ./web-api-thell-u3
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
@@ -51,9 +56,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_28089AEB7FEE47E7A369640D6EDE58EE }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_84B2F17E19E74AF9A57CE1855A634D29 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_011E276E444941DA8A4CC4ED8827CF93 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_742B76040D3743728807C871FFB37F5A }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9785F6D2F82A48AE8EFCC216B028FCD3 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_16F39218CCE943F39DA0A67BE89AE546 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -62,4 +67,17 @@ jobs:
           app-name: 'web-api-thell-u3'
           slot-name: 'Production'
           package: .
+  test:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Run smoke test
+        run: |
+          echo "Running smoke test..."
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://web-api-thell-u3-smoketest.azurewebsites.net/api/SmokeTest)
+          if [ "$response" != "200" ]; then
+            echo "Smoke test failed with status: $response"
+            exit 1
+          fi
+          echo "Smoke test passed!"
           
